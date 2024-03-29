@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.maps.GeoApiContext;
+
 
 import java.util.List;
 
@@ -25,6 +27,10 @@ public class PassengerRecyclerDetails extends AppCompatActivity {
 
     private static final String TAG = "PassengerRecyclerDeats";
     private static final int ERROR_DIALOG_REQUEST = 9001;
+
+    private static final String API_KEY = "AIzaSyBQiPQVE829TRTQxv27e6iBS6m-_fAJJq8";
+//    GeoApiContext context = new GeoApiContext().setApiKey(API_KEY);
+
 
     EditText driver1, phony, city1, dest1, date1, time1, car1, rate1, seats1, pricy;
     Button checkP, book;
@@ -58,7 +64,7 @@ public class PassengerRecyclerDetails extends AppCompatActivity {
         car1 = findViewById(R.id.passcarz);
         rate1 = findViewById(R.id.passrates);
         seats1 = findViewById(R.id.passnoseats);
-        pricy = findViewById(R.id.price);
+        pricy = findViewById(R.id.priceTag);
         checkP = findViewById(R.id.dapricin);
         book = findViewById(R.id.dabookin);
 
