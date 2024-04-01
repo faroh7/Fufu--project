@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/autour_one"
             android:padding="10dp"
-            android:text="Carlos"
+            android:text="user"
             android:textColor="@color/white"
             android:textSize="30sp"
             android:textStyle="bold" />

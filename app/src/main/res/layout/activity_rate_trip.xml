@@ -4,19 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RateTrip"
-    android:background="@drawable/ratingbg">
+    android:background="@drawable/ratebg"
+    tools:context=".RateTrip">
 
 
     <RatingBar
         android:id="@+id/ratingBar"
         android:layout_width="248dp"
         android:layout_height="61dp"
+        android:contentDescription="rating"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="rating"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView4"
@@ -24,9 +24,9 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/condiment"
         android:text="Rate your experience!"
-        android:textColor="#FF69B4"
+        android:textColor="#151415"
+        android:textSize="38sp"
         android:textStyle="bold"
-        android:textSize="34sp"
         app:layout_constraintBottom_toTopOf="@+id/ratingBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.446"

@@ -19,9 +19,9 @@
             android:layout_marginTop="30dp"
             android:padding="5dp"
             android:text="From:"
+            android:textColor="@color/purple_200"
             android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/city"
@@ -31,15 +31,15 @@
             android:layout_marginStart="68dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="50dp"
+            android:layout_toEndOf="@+id/from"
             android:background="@drawable/edit_bg1"
             android:drawableLeft="@drawable/building"
             android:drawablePadding="10dp"
-            android:layout_toEndOf="@+id/from"
-            android:hint="e.g. USIU"
-            android:textColorHint="@color/white"
-            android:textColor="@color/white"
+            android:hint="e.g. USIU Road"
             android:minHeight="48dp"
-            android:paddingStart="10dp" />
+            android:paddingStart="10dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
 
         <TextView
             android:id="@+id/to"
@@ -50,9 +50,9 @@
             android:layout_marginTop="33dp"
             android:padding="5dp"
             android:text="To:"
+            android:textColor="@color/purple_200"
             android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/dest"
@@ -61,30 +61,30 @@
             android:layout_below="@+id/city"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="92dp"
-            android:background="@drawable/edit_bg"
-            android:drawableLeft="@drawable/buildin"
-            android:drawablePadding="10dp"
             android:layout_marginTop="22dp"
             android:layout_marginEnd="50dp"
             android:layout_toEndOf="@+id/to"
-            android:hint="e.g. Kileleshwa"
-            android:textColorHint="@color/white"
-            android:textColor="@color/white"
+            android:background="@drawable/edit_bg"
+            android:drawableLeft="@drawable/buildin"
+            android:drawablePadding="10dp"
+            android:hint="e.g. FIVE STAR"
             android:minHeight="48dp"
-            android:paddingStart="10dp" />
+            android:paddingStart="10dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
 
         <TextView
             android:id="@+id/dates"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/to"
             android:layout_marginStart="20dp"
             android:layout_marginTop="33dp"
-            android:layout_below="@+id/to"
             android:padding="5dp"
             android:text="Date:"
+            android:textColor="@color/purple_200"
             android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/when"
@@ -111,14 +111,14 @@
             android:id="@+id/times"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/dates"
             android:layout_marginStart="20dp"
             android:layout_marginTop="33dp"
-            android:layout_below="@+id/dates"
             android:padding="5dp"
             android:text="Time:"
+            android:textColor="@color/purple_200"
             android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/whens"
@@ -145,14 +145,14 @@
             android:id="@+id/chooseCar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/whens"
             android:layout_marginStart="20dp"
             android:layout_marginTop="33dp"
-            android:layout_below="@+id/whens"
             android:padding="5dp"
             android:text="Select Car:"
+            android:textColor="@color/purple_200"
             android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/carSelect"
@@ -174,44 +174,44 @@
             android:id="@+id/rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/chooseCar"
             android:layout_marginStart="20dp"
             android:layout_marginTop="33dp"
-            android:layout_below="@+id/chooseCar"
             android:padding="5dp"
             android:text="Rate/km:"
+            android:textColor="@color/purple_200"
             android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/ratepkm"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/carSelect"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="40dp"
             android:layout_marginTop="22dp"
             android:layout_marginEnd="50dp"
-            android:layout_below="@+id/carSelect"
             android:layout_toEndOf="@+id/rate"
-            android:hint="rate"
-            android:contentDescription="rate per km"
-            android:textColor="@color/white"
-            android:minHeight="48dp"
             android:background="@drawable/edit_bg"
-            android:paddingStart="10dp"/>
+            android:contentDescription="rate per km"
+            android:hint="rate"
+            android:minHeight="48dp"
+            android:paddingStart="10dp"
+            android:textColor="@color/purple_200" />
 
         <TextView
             android:id="@+id/seats"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/rate"
             android:layout_marginStart="20dp"
             android:layout_marginTop="33dp"
-            android:layout_below="@+id/rate"
             android:padding="5dp"
             android:text="No. of seats:"
+            android:textColor="@color/purple_200"
             android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/seatsNo"
@@ -234,14 +234,14 @@
             android:id="@+id/priceText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/seats"
             android:layout_marginStart="20dp"
             android:layout_marginTop="33dp"
-            android:layout_below="@+id/seats"
             android:padding="5dp"
             android:text="Price"
+            android:textColor="@color/purple_200"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/priceBooking"
@@ -268,13 +268,13 @@
             android:id="@+id/submitBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Submit"
+            android:layout_below="@+id/seatsNo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="120dp"
             android:background="@drawable/btn_bg"
             android:padding="10dp"
-            android:textSize="20dp"
-            android:layout_below="@+id/seatsNo"
-            android:layout_marginTop="120dp"
-            android:layout_centerHorizontal="true"/>
+            android:text="Submit"
+            android:textSize="20dp" />
 
 
     </RelativeLayout>
