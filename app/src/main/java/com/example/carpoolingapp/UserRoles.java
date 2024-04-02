@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -24,6 +25,8 @@ public class UserRoles extends AppCompatActivity {
     Trip tuhrip;
     ArrayList<String> passengerEmails;
     ArrayAdapter<String> passAdapter;
+
+    ArrayList<String> passengers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,12 @@ public class UserRoles extends AppCompatActivity {
 
         trippy = dbHelper.getTripList(userEmail);
 
+        passengers = dbHelper.getPassengers(userEmail);
+        passAdapter = new ArrayAdapter<>(this, com.airbnb.lottie.R.layout.support_simple_spinner_dropdown_item,passengers);
+
+        Log.d("All Passengers", String.valueOf(passengers));
+
+
         if(tuhrip != null){
             starts.setText(tuhrip.getSource());
             stops.setText(tuhrip.getDestination());
@@ -72,5 +81,11 @@ public class UserRoles extends AppCompatActivity {
             theRate.setText(String.valueOf(tuhrip.getRatings()));
             theSeats.setText(String.valueOf(tuhrip.getSeatings()));
         }
+
+        // Displaying the list of passengers in the list view
+//        passAdapter = new ArrayAdapter<>(this, R.layout.fragment_car_list, R.id.listvview, passengers);
+        listView.setAdapter(passAdapter);
+        
+
     }
 }

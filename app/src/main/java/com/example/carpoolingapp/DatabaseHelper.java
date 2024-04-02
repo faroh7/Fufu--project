@@ -720,4 +720,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
+
+    public ArrayList<String> getPassengers(String userEmail){
+        ArrayList<String> passengers = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT " + COLUMN_PASSENGER_BOOKING + " FROM " + TABLE_BOOKING + " WHERE " + COLUMN_DRIVER_BOOKING + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{userEmail});
+
+        if(cursor.moveToFirst()){
+            do{
+                passengers.add(cursor.getString(0));
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return passengers;
+        
+    }
+
 }

@@ -253,7 +253,8 @@
             android:layout_below="@+id/noseats"
             android:layout_toEndOf="@+id/bookedpeeps"
             android:layout_marginTop="20dp"
-            android:layout_marginStart="26dp"/>
+            android:layout_marginStart="26dp"
+            android:textColor = "@color/white"/>
 
 
     </RelativeLayout>
