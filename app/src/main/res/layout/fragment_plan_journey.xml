@@ -230,38 +230,38 @@
             android:background="@drawable/edit_bg1"
             android:paddingStart="10dp"/>
 
-        <TextView
-            android:id="@+id/priceText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/seats"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="33dp"
-            android:padding="5dp"
-            android:text="Price"
-            android:textColor="@color/purple_200"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+<!--        <TextView-->
+<!--            android:id="@+id/priceText"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/seats"-->
+<!--            android:layout_marginStart="20dp"-->
+<!--            android:layout_marginTop="33dp"-->
+<!--            android:padding="5dp"-->
+<!--            android:text="Price"-->
+<!--            android:textColor="@color/purple_200"-->
+<!--            android:textSize="20sp"-->
+<!--            android:textStyle="bold" />-->
 
-        <EditText
-            android:id="@+id/priceBooking"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/seatsNo"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="92dp"
-            android:background="@drawable/edit_bg"
-            android:drawableLeft="@drawable/payup"
-            android:drawableTint="#BFD9FE"
-            android:drawablePadding="10dp"
-            android:layout_marginTop="22dp"
-            android:layout_marginEnd="50dp"
-            android:hint="Price"
-            android:textColorHint="@color/white"
-            android:textColor="@color/white"
-            android:minHeight="48dp"
-            android:paddingStart="10dp"
-            android:inputType="text" />
+<!--        <EditText-->
+<!--            android:id="@+id/priceBooking"-->
+<!--            android:layout_width="200dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/seatsNo"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_marginStart="92dp"-->
+<!--            android:background="@drawable/edit_bg"-->
+<!--            android:drawableLeft="@drawable/payup"-->
+<!--            android:drawableTint="#BFD9FE"-->
+<!--            android:drawablePadding="10dp"-->
+<!--            android:layout_marginTop="22dp"-->
+<!--            android:layout_marginEnd="50dp"-->
+<!--            android:hint="Price"-->
+<!--            android:textColorHint="@color/white"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:minHeight="48dp"-->
+<!--            android:paddingStart="10dp"-->
+<!--            android:inputType="text" />-->
 
 
         <androidx.appcompat.widget.AppCompatButton

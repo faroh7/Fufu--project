@@ -1,5 +1,7 @@
 package com.example.carpoolingapp;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +11,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,9 +23,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.GeoApiContext;
 
 
+import java.io.IOException;
 import java.util.List;
 
 public class PassengerRecyclerDetails extends AppCompatActivity {
@@ -38,17 +45,17 @@ public class PassengerRecyclerDetails extends AppCompatActivity {
     List<Trip> trippin;
     Trip selectTrip;
 
-    private ActivityResultLauncher<Intent> leMapLauncher = registerForActivityResult(new
-            ActivityResultContracts.StartActivityForResult(), result -> {
-        if(result.getResultCode() == Activity.RESULT_OK){
-            Intent deats = result.getData();
-            float resultData = deats.getFloatExtra("distance", 0);
-            Log.d("Passenger Recycler Deat", "Data received " + resultData);
-            int rates = Integer.parseInt(rate1.getText().toString());
-            int price = (int) (resultData * rates);
-            pricy.setText(String.valueOf(price));
-        }
-    });
+//    private ActivityResultLauncher<Intent> leMapLauncher = registerForActivityResult(new
+//            ActivityResultContracts.StartActivityForResult(), result -> {
+//        if(result.getResultCode() == Activity.RESULT_OK){
+//            Intent deats = result.getData();
+//            float resultData = deats.getFloatExtra("distance", 0);
+//            Log.d("Passenger Recycler Deat", "Data received " + resultData);
+//            int rates = Integer.parseInt(rate1.getText().toString());
+//            int price = (int) (resultData * rates);
+//            pricy.setText(String.valueOf(price));
+//        }
+//    });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,11 +115,51 @@ public class PassengerRecyclerDetails extends AppCompatActivity {
                     String sourceLoc = city1.getText().toString();
                     String destLoc = dest1.getText().toString();
 
-                    Intent intent = new Intent(PassengerRecyclerDetails.this,LeMap.class);
-                    Log.d("Passenger Recycler Deat", "Button has been clicked");
-                    intent.putExtra("sourceLoc", sourceLoc);
-                    intent.putExtra("destLoc", destLoc);
-                    leMapLauncher.launch(intent);
+//                    Intent intent = new Intent(PassengerRecyclerDetails.this,LeMap.class);
+//                    Log.d("Passenger Recycler Deat", "Button has been clicked");
+//                    intent.putExtra("sourceLoc", sourceLoc);
+//                    intent.putExtra("destLoc", destLoc);
+//                    leMapLauncher.launch(intent);
+                    try {
+                        Geocoder geocoder = new Geocoder(getApplicationContext());
+                        List<Address> sourceAddresses = geocoder.getFromLocationName(sourceLoc, 1);
+                        List<Address> destinationAddresses = geocoder.getFromLocationName(destLoc, 1);
+                        Log.d(TAG, "addresses: " + sourceAddresses + " dest " + destinationAddresses);
+
+                        if (sourceAddresses != null && !sourceAddresses.isEmpty() && destinationAddresses != null && !destinationAddresses.isEmpty()) {
+                            Address sourceAddress = sourceAddresses.get(0);
+                            Address destinationAddress = destinationAddresses.get(0);
+
+                            LatLng sourceLatLng = new LatLng(sourceAddress.getLatitude(), sourceAddress.getLongitude());
+                            LatLng destinationLatLng = new LatLng(destinationAddress.getLatitude(), destinationAddress.getLongitude());
+                            Log.d(TAG, "LatLng: " + sourceLatLng + " dest " + destinationLatLng);
+
+                            float[] results = new float[1];
+                            Location.distanceBetween(sourceLatLng.latitude, sourceLatLng.longitude,
+                                    destinationLatLng.latitude, destinationLatLng.longitude, results);
+
+                            float distanceInMeters = results[0];
+                            float distanceInKm = distanceInMeters / 1000f;
+
+                            Log.d("DISTANCE", "Distance between " + sourceLoc + " and " + destLoc + " is " + distanceInKm + " km");
+                            Toast.makeText(PassengerRecyclerDetails.this, "Distance between " + sourceLoc + " and " + destLoc + " is " + distanceInKm + " km", Toast.LENGTH_SHORT).show();
+
+//                            Intent dist = new Intent();
+//                            dist.putExtra("distance", distanceInKm);
+//                            setResult(Activity.RESULT_OK, dist);
+//                            finish();
+
+                            int rates = Integer.parseInt(rate1.getText().toString());
+                            int price = (int) (distanceInKm * rates);
+                            pricy.setText(String.valueOf(price));
+
+                        } else {
+                            //Log.d("DISTANCE", "Could not find the location");
+                            Toast.makeText(getApplicationContext(), "Could not find the location", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
                     checkP.setEnabled(false);
                     checkP.setAlpha(0.5f);
@@ -127,6 +174,12 @@ public class PassengerRecyclerDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                int numberOfSeats = Integer.parseInt(seats1.getText().toString().trim());
+                if(numberOfSeats == 0){
+                    Toast.makeText(PassengerRecyclerDetails.this, "No seats available", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 String driver = driver1.getText().toString().trim();
                 int price = Integer.parseInt(pricy.getText().toString().trim());
                 String dat = date1.getText().toString().trim();
@@ -137,8 +190,10 @@ public class PassengerRecyclerDetails extends AppCompatActivity {
 
                 int tripId = debs.getTripId(driver, dat, time);
 
-                Paymeant pay = new Paymeant(driver, price);
-                boolean success = debs.addPayment(pay, currentUser, tripId);
+                boolean success = debs.addBooking(driver,currentUser,tripId);
+
+//                Paymeant pay = new Paymeant(driver, price);
+//                boolean success = debs.addPayment(pay, currentUser, tripId);
                 if(success){
                     Toast.makeText(PassengerRecyclerDetails.this, "Trip booked successfully", Toast.LENGTH_SHORT).show();
                     book.setEnabled(false);

@@ -55,6 +55,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_PASSENGER = "passenger";
     private static final String COLUMN_PRICE = "price";
 
+    // Booking table
+
+    private static final String TABLE_BOOKING = "Booking";
+    private static final String COLUMN_BOOKING_ID = "BookingID";
+    private static final String COLUMN_DRIVER_BOOKING = "Driver_booking";
+    private static final String COLUMN_PASSENGER_BOOKING = "Passenger_booking";
+    private static final String COLUMN_TRIP_BOOKING = "tripID";
+
 
 
     private static final String CREATE_TABLE_USERS = "CREATE TABLE " + TABLE_NAME + "("
@@ -95,6 +103,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + COLUMN_PRICE + " TEXT NOT NULL, "
             + "FOREIGN KEY(" + COLUMN_ID + ") REFERENCES " + TABLE_TRIP + "(" + COLUMN_ID + "));";
 
+    private static final String CREATE_TABLE_BOOKING = "CREATE TABLE " + TABLE_BOOKING + " ("
+            + COLUMN_BOOKING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 3000, "
+            + COLUMN_DRIVER_BOOKING + " TEXT NOT NULL, "
+            + COLUMN_PASSENGER_BOOKING + " TEXT NOT NULL, "
+            + COLUMN_TRIP_BOOKING + " TEXT NOT NULL, "
+            + "FOREIGN KEY(" + COLUMN_DRIVER_BOOKING + ") REFERENCES " + TABLE_NAME + "(" + COLUMN_EMAIL + "), "
+            + "FOREIGN KEY(" + COLUMN_PASSENGER_BOOKING + ") REFERENCES " + TABLE_NAME + "(" + COLUMN_EMAIL + "), "
+            + "FOREIGN KEY(" + COLUMN_TRIP_BOOKING + ") REFERENCES " + TABLE_TRIP + "(" + COLUMN_ID + "));";
+
     private static final String SHARED_PREFS_NAME = "my_shared_prefs";
     private static final String CURRENT_USER_EMAIL_KEY = "current_user_email";
 
@@ -109,6 +126,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_CARS);
         db.execSQL(CREATE_TABLE_TRIPS);
         db.execSQL(CREATE_TABLE_PAYMENTS);
+        db.execSQL(CREATE_TABLE_BOOKING);
+
     }
 
     @Override
@@ -117,6 +136,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CAR);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TRIP);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PAYMENTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BOOKING);
         onCreate(db);
     }
 
@@ -686,6 +706,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
 
         return deleteRows > 0;
+    }
+
+    public boolean addBooking(String driver, String passenger, int tripId){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_DRIVER_BOOKING, driver);
+        contentValues.put(COLUMN_PASSENGER_BOOKING, passenger);
+        contentValues.put(COLUMN_TRIP_BOOKING, tripId);
+        long result = db.insert(TABLE_BOOKING, null, contentValues);
+        db.execSQL("UPDATE " + TABLE_TRIP + " SET " + COLUMN_SEATS + " = " + COLUMN_SEATS + " - 1 WHERE " + COLUMN_ID + " = " + tripId);
+        db.close();
+        return result != -1;
     }
 
 }
