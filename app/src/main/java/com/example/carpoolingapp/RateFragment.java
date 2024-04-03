@@ -40,7 +40,7 @@ public class RateFragment extends Fragment implements JourneyListAdapter.OnItemC
         SharedPreferences sharedPreference = getActivity().getSharedPreferences("myPrefers", Context.MODE_PRIVATE);
         String currentUser = sharedPreference.getString("Email", "");
 
-        rateList = helpa.getPassengerTrips(currentUser);
+        rateList = helpa.getBookedTripsByPassenger(currentUser);
         rati.setLayoutManager(new LinearLayoutManager(getActivity()));
         rateAdapter = new JourneyListAdapter(getActivity(), rateList);
         rati.setAdapter(rateAdapter);
@@ -51,9 +51,18 @@ public class RateFragment extends Fragment implements JourneyListAdapter.OnItemC
 
     @Override
     public void onItemClick(int position) {
-        Trip tree = rateList.get(position);
+//        Trip tree = rateList.get(position).get;
+        SharedPreferences sharedPreference = getActivity().getSharedPreferences("myPrefers", Context.MODE_PRIVATE);
+        String currentUser = sharedPreference.getString("Email", "");
+        System.out.println(rateList.get(position).getMerlin());
+        System.out.println(rateList.get(position).getDestination());
+        System.out.println(rateList.get(position).getSource());
         Intent intent = new Intent(getActivity(), RateTrip.class);
-        intent.putExtra("Tree", tree); // Pass the trip ID to RateTrip activity
+        intent.putExtra("driver",rateList.get(position).getMerlin());
+        intent.putExtra("passenger",currentUser);
+        intent.putExtra("destination",rateList.get(position).getDestination());
+        intent.putExtra("source",rateList.get(position).getSource());
+//        intent.putExtra("Tree", tree); // Pass the trip ID to RateTrip activity
         startActivity(intent);
     }
 }

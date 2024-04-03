@@ -47,6 +47,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_CAR_REG = "carRegistrationNo";
     private static final String COLUMN_RATE = "ratePerKm";
     private static final String COLUMN_SEATS = "seatsAvailable";
+    private static final String COLUMN_RATING = "tripRating";
 
     //Payments table
     private static final String TABLE_PAYMENTS = "Payments";
@@ -93,6 +94,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + COLUMN_CAR_REG + " TEXT NOT NULL, "
             + COLUMN_RATE + " INTEGER NOT NULL, "
             + COLUMN_SEATS + " INTEGER NOT NULL, "
+            + COLUMN_RATING + " INTEGER NOT NULL DEFAULT 0, "
             + "FOREIGN KEY(" + COLUMN_EMAIL + ") REFERENCES " + TABLE_NAME + "(" + COLUMN_EMAIL + "));";
 
     private static final String CREATE_TABLE_PAYMENTS = "CREATE TABLE " + TABLE_PAYMENTS + " ("
@@ -181,6 +183,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COLUMN_CAR_REG, trip.getCarRegNo());
         contentValues.put(COLUMN_RATE, trip.getRatings());
         contentValues.put(COLUMN_SEATS, trip.getSeatings());
+        contentValues.put(COLUMN_RATING,0);
         long result = db.insert(TABLE_TRIP, null, contentValues);
         db.close();
         return result != -1;
@@ -464,6 +467,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 int carColumnIndex = curssor.getColumnIndex(COLUMN_CAR_REG);
                 int rateColumnIndex = curssor.getColumnIndex(COLUMN_RATE);
                 int seatColumnIndex = curssor.getColumnIndex(COLUMN_SEATS);
+                int tripColumnIndex = curssor.getColumnIndex(COLUMN_RATING);
 
                 String origins = curssor.getString(sourceColumnIndex);
                 String destiny = curssor.getString(destinColumnIndex);
@@ -472,8 +476,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String carReg = curssor.getString(carColumnIndex);
                 int rates = curssor.getInt(rateColumnIndex);
                 int seats = curssor.getInt(seatColumnIndex);
+                int tripRating = curssor.getInt(tripColumnIndex);
 
-                Trip tripp = new Trip(origins, destiny, dayy, timme, carReg, rates, seats);
+                Trip tripp = new Trip(origins, destiny, dayy, timme, carReg, rates, seats,tripRating);
                 tripList.add(tripp);
             }while (curssor.moveToNext());
         }
@@ -500,6 +505,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 int rateColumnIndex = curssor.getColumnIndex(COLUMN_RATE);
                 int seatColumnIndex = curssor.getColumnIndex(COLUMN_SEATS);
                 int phonColumnIndex = curssor.getColumnIndex("phoneNumber");
+                int tripRatingIndex = curssor.getColumnIndex(COLUMN_RATING);
 
                 String emailing = curssor.getString(emailColumnIndex);
                 String origins = curssor.getString(sourceColumnIndex);
@@ -507,11 +513,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String dayy = curssor.getString(dayColumnIndex);
                 String timme = curssor.getString(timColumnIndex);
                 String carReg = curssor.getString(carColumnIndex);
+                int trip = curssor.getInt(tripRatingIndex);
                 int rates = curssor.getInt(rateColumnIndex);
                 int seats = curssor.getInt(seatColumnIndex);
                 String phun = curssor.getString(phonColumnIndex);
 
-                Trip tripp = new Trip(origins, destiny, dayy, timme, carReg, rates, seats);
+                Trip tripp = new Trip(origins, destiny, dayy, timme, carReg, rates, seats,trip);
                 tripp.setMerlin(emailing);
                 tripp.setPhoon(phun);
                 tripList.add(tripp);
@@ -614,7 +621,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String driverEmail = cursor.getString(driveeColumnIndex);
                 String paymentt = cursor.getString(payColumnIndex);
 
-                Trip trip = new Trip(null, destination, null,  time, null, 0, 0);
+                Trip trip = new Trip(null, destination, null,  time, null, 0, 0,0);
                 trip.setMerlin(driverEmail);
                 trip.setPayment(paymentt);
                 ctrip.add(trip);
@@ -647,7 +654,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String driverEmail = cursor.getString(driveeColumnIndex);
                 String paymentt = cursor.getString(payColumnIndex);
 
-                Trip trip = new Trip(null, destination, null,  time, null, 0, 0);
+                Trip trip = new Trip(null, destination, null,  time, null, 0, 0,0);
                 trip.setMerlin(driverEmail);
                 trip.setPayment(paymentt);
                 ctrip.add(trip);
@@ -678,7 +685,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String dea = cursor.getString(dColumnIndex);
                 String tie = cursor.getString(tColumnIndex);
 
-                Trip t = new Trip(ori, dea, null, tie, null, 0, 0);
+                Trip t = new Trip(ori, dea, null, tie, null, 0, 0,0);
                 tripsList.add(t);
             } while (cursor.moveToNext());
         }
@@ -738,22 +745,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         
     }
 
-    // public ArrayList<String> getBookedTripsByPassenger(String userEmail){
-    //     ArrayList<String> trips = new ArrayList<>();
-    //     SQLiteDatabase db = this.getReadableDatabase();
-    //     String query = "SELECT " + COLUMN_TRIP_BOOKING + " FROM " + TABLE_BOOKING + " WHERE " + COLUMN_DRIVER_BOOKING + " = ?";
-    //     Cursor cursor = db.rawQuery(query, new String[]{userEmail});
-
-    //     if(cursor.moveToFirst()){
-    //         do{
-    //             trips.add(cursor.getString(0));
-    //         }while(cursor.moveToNext());
-    //     }
-    //     cursor.close();
-    //     db.close();
-    //     return trips;
-    // }
-
 
     public List<Trip> getBookedTripsByPassenger(String userEmail){
         // Select source, destination, time, driver, rate/km from booking and trip table 
@@ -769,6 +760,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 int rateColumnIndex = cursor.getColumnIndex(COLUMN_RATE);
                 int carRegColumnIndex = cursor.getColumnIndex(COLUMN_CAR_REG);
                 int driverColumnIndex = cursor.getColumnIndex(COLUMN_DRIVER_BOOKING);
+//                int tripRatingIndex = cursor.getColumnIndex(COLUMN_RATING);
 
                 String source = cursor.getString(sourceColumnIndex);
                 String destination = cursor.getString(destinationColumnIndex);
@@ -776,8 +768,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 int rate = cursor.getInt(rateColumnIndex);
                 String carReg = cursor.getString(carRegColumnIndex);
                 String driver = cursor.getString(driverColumnIndex);
+//                int tripRating = cursor.getInt(tripRatingIndex);
 
-                Trip trip = new Trip(source, destination, null, time, carReg, rate, 0);
+                Trip trip = new Trip(source, destination, null, time, carReg, rate, 0,0);
                 trip.setMerlin(driver);
                 trips.add(trip);
             }while(cursor.moveToNext());
@@ -813,12 +806,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             int rate = cursor.getInt(rateColumnIndex);
             int seats = cursor.getInt(seatColumnIndex);
 
-            trip = new Trip(source, destination, date, time, carReg, rate, seats);
+            trip = new Trip(source, destination, date, time, carReg, rate, seats,0);
         }
 
         cursor.close();
         db.close();
         return trip;
+    }
+
+    public boolean addRating(String driver, String passenger, String source, String destination, float rating){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT " + COLUMN_ID + " FROM " + TABLE_TRIP + " WHERE " + COLUMN_EMAIL + " = ? AND " + COLUMN_SOURCE + " = ? AND " + COLUMN_DESTINATION + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{driver, source, destination});
+        int tripId = -1;
+        if(cursor.moveToFirst()){
+            int tripIdColumnIndex = cursor.getColumnIndex(COLUMN_ID);
+            tripId = cursor.getInt(tripIdColumnIndex);
+        }
+        cursor.close();
+        if(tripId == -1){
+            return false;
+        }
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_RATING, rating);
+        int result = db.update(TABLE_TRIP, contentValues, COLUMN_ID + " = ?", new String[]{String.valueOf(tripId)});
+        db.close();
+        return result > 0;
     }
 
 }

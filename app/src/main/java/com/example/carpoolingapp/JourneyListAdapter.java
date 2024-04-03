@@ -95,6 +95,7 @@ public class JourneyListAdapter extends RecyclerView.Adapter<JourneyListAdapter.
         holder.origin.setText(trip.getSource());
         holder.destination.setText(trip.getDestination());
         holder.timey.setText(trip.getTiming());
+        holder.rating.setText(String.valueOf(trip.getTripRating() + " stars"));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +115,7 @@ public class JourneyListAdapter extends RecyclerView.Adapter<JourneyListAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         RelativeLayout relativeLayout;
-        TextView origin, destination, timey;
+        TextView origin, destination, timey, rating;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -122,6 +123,7 @@ public class JourneyListAdapter extends RecyclerView.Adapter<JourneyListAdapter.
             origin = itemView.findViewById(R.id.origin);
             destination = itemView.findViewById(R.id.destt);
             timey = itemView.findViewById(R.id.timmy);
+            rating = itemView.findViewById(R.id.ratingText);
         }
     }
 }

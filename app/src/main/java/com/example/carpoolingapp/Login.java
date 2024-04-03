@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -32,7 +31,7 @@ public class Login extends AppCompatActivity {
         pass = findViewById(R.id.editTextTextPassword);
         forgot = findViewById(R.id.textView);
         createAccs = findViewById(R.id.textView3);
-        login = findViewById(R.id.button);
+        login = findViewById(R.id.submitRating);
 
 
         helper = new DatabaseHelper(this);

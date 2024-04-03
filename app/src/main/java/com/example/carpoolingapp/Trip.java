@@ -14,8 +14,9 @@ public class Trip implements Serializable {
     public String merlin;
     public String phoon;
     public String payment;
+    public int tripRating;
 
-    public Trip(String source, String destination, String dating, String timing, String carRegNo, int ratings, int seatings) {
+    public Trip(String source, String destination, String dating, String timing, String carRegNo, int ratings, int seatings, int tripRating) {
         this.source = source;
         this.destination = destination;
         this.dating = dating;
@@ -23,6 +24,7 @@ public class Trip implements Serializable {
         this.carRegNo = carRegNo;
         this.ratings = ratings;
         this.seatings = seatings;
+        this.tripRating = tripRating;
     }
 
     public String getMerlin() {
@@ -104,4 +106,8 @@ public class Trip implements Serializable {
     public void setSeatings(int seatings) {
         this.seatings = seatings;
     }
+
+    public void setTripRating(int tripRating){ this.tripRating = tripRating;}
+
+    public int getTripRating(){ return  tripRating;}
 }

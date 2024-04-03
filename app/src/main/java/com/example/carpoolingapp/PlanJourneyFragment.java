@@ -146,7 +146,7 @@ public class PlanJourneyFragment extends Fragment implements AdapterView.OnItemS
                     return;
                 }
 
-                Trip trip = new Trip(origin, destination, datt, timm, carRegistration, raate, seets);
+                Trip trip = new Trip(origin, destination, datt, timm, carRegistration, raate, seets,0);
                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences("myPrefers", Context.MODE_PRIVATE);
                 String currentUser = sharedPreferences.getString("Email", "");
 

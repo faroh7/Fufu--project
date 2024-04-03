@@ -95,6 +95,35 @@
             android:layout_marginTop="10dp"
             android:layout_below="@id/destt"/>
 
+
+        <TextView
+            android:id="@+id/ratingTexview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rating: "
+            android:textColor="@color/white"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:textStyle="bold"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/modelTitle"
+            android:layout_marginBottom="10dp"/>
+
+        <TextView
+            android:id="@+id/ratingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5"
+            android:textColor="@color/white"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginStart="220dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/timmy"/>
+
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
