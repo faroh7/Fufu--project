@@ -37,6 +37,7 @@ public class TripSearchFragment extends Fragment implements JourneyListAdapter.O
         databees = new DatabaseHelper(getContext());
 
         tripses = databees.getTripsList();
+        System.out.println(tripses);
         tripRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         journeyListAdapter = new JourneyListAdapter(getActivity(), tripses);
         tripRecyclerView.setAdapter(journeyListAdapter);

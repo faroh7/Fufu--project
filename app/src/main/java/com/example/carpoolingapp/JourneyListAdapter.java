@@ -33,6 +33,7 @@ public class JourneyListAdapter extends RecyclerView.Adapter<JourneyListAdapter.
     OnItemClickListener listener;
 
     public JourneyListAdapter(Context context, List<Trip> tripList) {
+        System.out.println("JAMA");
         this.context = context;
         this.tripList = tripList;
         this.fullTrip = new ArrayList<>(tripList);
@@ -82,6 +83,7 @@ public class JourneyListAdapter extends RecyclerView.Adapter<JourneyListAdapter.
     @NonNull
     @Override
     public JourneyListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        System.out.println("I AM ALSO HERE");
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.journey_list_design, parent, false);
         return new ViewHolder(view);
     }

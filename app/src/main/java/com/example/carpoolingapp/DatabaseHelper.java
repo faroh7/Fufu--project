@@ -738,4 +738,87 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         
     }
 
+    // public ArrayList<String> getBookedTripsByPassenger(String userEmail){
+    //     ArrayList<String> trips = new ArrayList<>();
+    //     SQLiteDatabase db = this.getReadableDatabase();
+    //     String query = "SELECT " + COLUMN_TRIP_BOOKING + " FROM " + TABLE_BOOKING + " WHERE " + COLUMN_DRIVER_BOOKING + " = ?";
+    //     Cursor cursor = db.rawQuery(query, new String[]{userEmail});
+
+    //     if(cursor.moveToFirst()){
+    //         do{
+    //             trips.add(cursor.getString(0));
+    //         }while(cursor.moveToNext());
+    //     }
+    //     cursor.close();
+    //     db.close();
+    //     return trips;
+    // }
+
+
+    public List<Trip> getBookedTripsByPassenger(String userEmail){
+        // Select source, destination, time, driver, rate/km from booking and trip table 
+        List<Trip> trips = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT " + TABLE_TRIP + "." + COLUMN_SOURCE + ", " + TABLE_TRIP + "." + COLUMN_DESTINATION + ", " + TABLE_TRIP + "." + COLUMN_TIME + ", " + TABLE_TRIP + "." + COLUMN_RATE + ", " + TABLE_TRIP + "." + COLUMN_CAR_REG + ", " + TABLE_BOOKING + "." + COLUMN_DRIVER_BOOKING + " FROM " + TABLE_BOOKING + " JOIN " + TABLE_TRIP + " ON " + TABLE_BOOKING + "." + COLUMN_TRIP_BOOKING + " = " + TABLE_TRIP + "." + COLUMN_ID + " WHERE " + TABLE_BOOKING + "." + COLUMN_PASSENGER_BOOKING + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{userEmail});
+        if(cursor.moveToFirst()){
+            do{
+                int sourceColumnIndex = cursor.getColumnIndex(COLUMN_SOURCE);
+                int destinationColumnIndex = cursor.getColumnIndex(COLUMN_DESTINATION);
+                int timeColumnIndex = cursor.getColumnIndex(COLUMN_TIME);
+                int rateColumnIndex = cursor.getColumnIndex(COLUMN_RATE);
+                int carRegColumnIndex = cursor.getColumnIndex(COLUMN_CAR_REG);
+                int driverColumnIndex = cursor.getColumnIndex(COLUMN_DRIVER_BOOKING);
+
+                String source = cursor.getString(sourceColumnIndex);
+                String destination = cursor.getString(destinationColumnIndex);
+                String time = cursor.getString(timeColumnIndex);
+                int rate = cursor.getInt(rateColumnIndex);
+                String carReg = cursor.getString(carRegColumnIndex);
+                String driver = cursor.getString(driverColumnIndex);
+
+                Trip trip = new Trip(source, destination, null, time, carReg, rate, 0);
+                trip.setMerlin(driver);
+                trips.add(trip);
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return trips;
+
+        
+    }
+
+    public Trip getTripById(int tripId){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_TRIP + " WHERE " + COLUMN_ID + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(tripId)});
+
+        Trip trip = null;
+
+        if(cursor.moveToFirst()){
+            int sourceColumnIndex = cursor.getColumnIndex(COLUMN_SOURCE);
+            int destinColumnIndex = cursor.getColumnIndex(COLUMN_DESTINATION);
+            int dateColumnIndex = cursor.getColumnIndex(COLUMN_DATE);
+            int timeColumnIndex = cursor.getColumnIndex(COLUMN_TIME);
+            int carColumnIndex = cursor.getColumnIndex(COLUMN_CAR_REG);
+            int rateColumnIndex = cursor.getColumnIndex(COLUMN_RATE);
+            int seatColumnIndex = cursor.getColumnIndex(COLUMN_SEATS);
+
+            String source = cursor.getString(sourceColumnIndex);
+            String destination = cursor.getString(destinColumnIndex);
+            String date = cursor.getString(dateColumnIndex);
+            String time = cursor.getString(timeColumnIndex);
+            String carReg = cursor.getString(carColumnIndex);
+            int rate = cursor.getInt(rateColumnIndex);
+            int seats = cursor.getInt(seatColumnIndex);
+
+            trip = new Trip(source, destination, date, time, carReg, rate, seats);
+        }
+
+        cursor.close();
+        db.close();
+        return trip;
+    }
+
 }

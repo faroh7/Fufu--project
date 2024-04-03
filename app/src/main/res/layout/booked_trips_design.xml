@@ -12,7 +12,7 @@
     app:cardBackgroundColor="#9F000000">
 
     <RelativeLayout
-        android:id="@+id/journrecyclerview"
+        android:id="@+id/bookedTriprecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -30,7 +30,7 @@
             android:layout_marginTop="20dp"/>
 
         <TextView
-            android:id="@+id/abc"
+            android:id="@+id/driverName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cartman"
@@ -52,10 +52,10 @@
             android:textStyle="bold"
             android:layout_marginStart="40dp"
             android:layout_marginTop="10dp"
-            android:layout_below="@+id/abc"/>
+            android:layout_below="@+id/driverName"/>
 
         <TextView
-            android:id="@+id/def"
+            android:id="@+id/bookedDestination"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Kileleshwa"
@@ -65,7 +65,7 @@
             android:textSize="16sp"
             android:layout_marginStart="220dp"
             android:layout_marginTop="10dp"
-            android:layout_below="@+id/abc"/>
+            android:layout_below="@+id/driverName"/>
 
         <TextView
             android:id="@+id/modelTitle"
@@ -77,12 +77,12 @@
             android:paddingEnd="5dp"
             android:textStyle="bold"
             android:layout_marginStart="40dp"
-            android:layout_below="@+id/def"
+            android:layout_below="@+id/bookedDestination"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"/>
 
         <TextView
-            android:id="@+id/ghi"
+            android:id="@+id/bookedTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="11:30"
@@ -92,22 +92,22 @@
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginStart="220dp"
-            android:layout_below="@+id/def"
+            android:layout_below="@+id/bookedDestination"
             android:layout_marginTop="10dp"/>
 
-        <TextView
-            android:id="@+id/viewMap"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:text="Track Ride"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:layout_below="@+id/ghi"
-            android:layout_marginTop="10dp"
-            android:textStyle="bold"
-            android:layout_marginStart="30dp"
-            android:layout_marginBottom="10dp"
-            android:paddingStart="120dp"/>
+<!--        <TextView-->
+<!--            android:id="@+id/viewMap"-->
+<!--            android:layout_width="320dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Track Ride"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="18sp"-->
+<!--            android:layout_below="@+id/bookedTime"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:layout_marginStart="30dp"-->
+<!--            android:layout_marginBottom="10dp"-->
+<!--            android:paddingStart="120dp"/>-->
 
     </RelativeLayout>
 

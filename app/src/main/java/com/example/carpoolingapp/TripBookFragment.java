@@ -38,15 +38,17 @@ public class TripBookFragment extends Fragment implements BookedTripsAdapter.OnI
 
         bookedRecycler = view.findViewById(R.id.booked_trips);
         helper = new DatabaseHelper(getActivity());
-
+//
         SharedPreferences sharedPreference = getActivity().getSharedPreferences("myPrefers", Context.MODE_PRIVATE);
         String currentUser = sharedPreference.getString("Email", "");
+//
+        bookedTripp = helper.getBookedTripsByPassenger(currentUser);
+        System.out.println(bookedTripp.toString());
 
-        bookedTripp = helper.getBookedTrips(currentUser);
         bookedRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-        tripsAdapter = new BookedTripsAdapter(bookedTripp);
+        tripsAdapter = new BookedTripsAdapter(getActivity(),bookedTripp);
         bookedRecycler.setAdapter(tripsAdapter);
-
+//
         tripsAdapter.setOnItemClickListener(this);
 
         return view;
@@ -57,7 +59,7 @@ public class TripBookFragment extends Fragment implements BookedTripsAdapter.OnI
         Trip bookedTrip = bookedTripp.get(position);
         Intent intent = new Intent(getActivity(), MakePayment.class);
         intent.putExtra("BookedTrip", bookedTrip);
-        startActivity(intent);
+//        startActivity(intent);
         tripsAdapter.notifyDataSetChanged();
     }
 
@@ -67,7 +69,7 @@ public class TripBookFragment extends Fragment implements BookedTripsAdapter.OnI
         SharedPreferences sharedPreference = getActivity().getSharedPreferences("myPrefers", Context.MODE_PRIVATE);
         String userNow = sharedPreference.getString("Email", "");
         bookedTripp.clear();
-        bookedTripp.addAll(helper.getBookedTrips(userNow));
+        bookedTripp.addAll(helper.getBookedTripsByPassenger(userNow));
         tripsAdapter.notifyDataSetChanged();
     }
 }

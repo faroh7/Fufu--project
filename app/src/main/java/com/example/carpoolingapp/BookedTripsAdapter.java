@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,9 +32,11 @@ public class BookedTripsAdapter extends RecyclerView.Adapter<BookedTripsAdapter.
     private static final int ERROR_DIALOG_REQUEST = 9001;
 
     OnItemClickListener listenerr;
+    Context context;
 
-    public BookedTripsAdapter(List<Trip> bookedTrips) {
+    public BookedTripsAdapter(Context context,List<Trip> bookedTrips) {
         this.bookedTrips = bookedTrips;
+        this.context = context;
     }
 
     public void setOnItemClickListener(OnItemClickListener itemClickListener) {
@@ -74,20 +77,20 @@ public class BookedTripsAdapter extends RecyclerView.Adapter<BookedTripsAdapter.
         TextView ab, cd, ef, trackRide;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            ab = itemView.findViewById(R.id.abc);
-            cd = itemView.findViewById(R.id.def);
-            ef = itemView.findViewById(R.id.ghi);
-            trackRide = itemView.findViewById(R.id.viewMap);
+            ab = itemView.findViewById(R.id.driverName);
+            cd = itemView.findViewById(R.id.bookedDestination);
+            ef = itemView.findViewById(R.id.bookedTime);
+//            trackRide = itemView.findViewById(R.id.viewMap);
 
-            trackRide.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(isServicesOK()){
-                        Intent intent = new Intent(v.getContext(), LeMap.class);
-                        v.getContext().startActivity(intent);
-                    }
-                }
-            });
+//            trackRide.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if(isServicesOK()){
+//                        Intent intent = new Intent(v.getContext(), LeMap.class);
+//                        v.getContext().startActivity(intent);
+//                    }
+//                }
+//            });
         }
 
         public boolean isServicesOK() {
